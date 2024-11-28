@@ -1,15 +1,10 @@
-# Python-generated files
-__pycache__/
+!.gitkeep
+*.egg-info
 *.py[oc]
+.venv
+__pycache__/
 build/
 dist/
-wheels/
-*.egg-info
-
-# Virtual environments
-.venv
-
-# project specific files
 logs/**
-!.gitkeep
 scratch
+wheels/
