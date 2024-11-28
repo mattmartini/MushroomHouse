@@ -8,7 +8,12 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
+    "adafruit-blinka>=8.50.0",
+    "adafruit-circuitpython-dht>=4.0.6",
+    "adafruit-circuitpython-shtc3>=1.1.15",
+    "board>=1.0",
     "rich>=13.9.4",
+    "simple-pid>=2.0.1",
 ]
 
 [dependency-groups]
