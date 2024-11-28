@@ -9,7 +9,7 @@ __email__ = "matt.martini@imaginarywave.com"
 __version__ = "0.1.0"
 
 
-channel = 21
+channel = 26
 cycle_time = 10
 
 # GPIO Setup
