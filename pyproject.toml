@@ -12,6 +12,7 @@ dependencies = [
     "adafruit-circuitpython-dht>=4.0.6",
     "adafruit-circuitpython-shtc3>=1.1.15",
     "board>=1.0",
+    "gpiosimulator>=0.1",
     "rich>=13.9.4",
     "simple-pid>=2.0.1",
 ]
