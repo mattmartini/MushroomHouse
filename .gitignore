@@ -1,10 +1,14 @@
 !.gitkeep
 *.egg-info
 *.py[oc]
+.coverage
 .venv
 __pycache__/
 build/
 dist/
+htmlcov
 logs/**
+pytest_report.html
 scratch
+tests/assets/
 wheels/
