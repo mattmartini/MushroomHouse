@@ -1,12 +1,12 @@
 """Temperature Sensor (DS18B20)."""
 
-import glob
-import os
-import time
-
 __author__ = "Matt Martini"
 __email__ = "matt.martini@imaginarywave.com"
 __version__ = "1.0.0"
+
+import glob
+import os
+import time
 
 
 class SensorDS18B20:

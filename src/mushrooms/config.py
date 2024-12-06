@@ -1,11 +1,10 @@
 """Keep config vars in a file.  Read/write/check if modified."""
 
-import os
-
 __author__ = "Matt Martini"
 __email__ = "matt.martini@imaginarywave.com"
 __version__ = "1.0.1"
 
+import os
 
 DEFAULTCONFIGFILE = "/home/pi/greenhouse.conf"
 

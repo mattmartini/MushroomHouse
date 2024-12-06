@@ -1,5 +1,9 @@
 """test to see if HUP signal can be caught"""
 
+__author__ = "Matt Martini"
+__email__ = "matt.martini@imaginarywave.com"
+__version__ = "1.0.0"
+
 import signal
 import time
 

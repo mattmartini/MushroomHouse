@@ -1,14 +1,14 @@
 #!/usr/bin/python
 """Watch processes to insure controller is running"""
 
-import subprocess
-
-# import psutil
-import mailer
-
 __author__ = "Matt Martini"
 __email__ = "matt.martini@imaginarywave.com"
 __version__ = "0.1.0"
+
+import subprocess
+import mailer
+
+# import psutil
 
 
 CMD = "/usr/local/bin/svok"

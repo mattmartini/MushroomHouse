@@ -1,21 +1,20 @@
 """Greenhouse Temperature Controller"""
 
-import signal
-
-from simple_pid import PID
-
-import config
-import data_streamer
-import heater
-import sensor_ds18b20
-import sensor_shtc3
-import mailer
-
-# import sensor_dht22
-
 __author__ = "Matt Martini"
 __email__ = "matt.martini@imaginarywave.com"
 __version__ = "1.1.0"
+
+import signal
+from simple_pid import PID
+
+from mushrooms import config
+from mushrooms import data_streamer
+from mushrooms import heater
+from mushrooms import sensor_ds18b20
+from mushrooms import sensor_shtc3
+from mushrooms import mailer
+
+# from mushrooms import sensor_dht22
 
 
 pid = PID(1.0, 0.0, 0.0, setpoint=60.0)

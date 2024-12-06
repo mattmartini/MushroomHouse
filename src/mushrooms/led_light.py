@@ -1,13 +1,12 @@
 """Turn LED on and off."""
 
-import time
-
-import board
-import digitalio
-
 __author__ = "Matt Martini"
 __email__ = "matt.martini@imaginarywave.com"
 __version__ = "0.1.0"
+
+import time
+import board
+import digitalio
 
 
 class LED:

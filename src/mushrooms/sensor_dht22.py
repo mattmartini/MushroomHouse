@@ -1,13 +1,12 @@
 """Temperature Sensor (DHT22)."""
 
-import time
-
-import adafruit_dht
-import board
-
 __author__ = "Matt Martini"
 __email__ = "matt.martini@imaginarywave.com"
 __version__ = "1.0.0"
+
+import time
+import adafruit_dht
+import board
 
 
 class SensorDHT22:

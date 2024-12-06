@@ -1,12 +1,11 @@
 """Stream temperature data to initialstate.com for graphing."""
 
-import os
-
-from ISStreamer.Streamer import Streamer
-
 __author__ = "Matt Martini"
 __email__ = "matt.martini@imaginarywave.com"
 __version__ = "1.1.0"
+
+import os
+from ISStreamer.Streamer import Streamer
 
 
 SENSOR_LOCATION_NAME = "Hothouse"

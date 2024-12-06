@@ -1,12 +1,11 @@
 """Turn heater on and off"""
 
-import time
-
-from RPi import GPIO
-
 __author__ = "Matt Martini"
 __email__ = "matt.martini@imaginarywave.com"
 __version__ = "1.0.0"
+
+import time
+from RPi import GPIO
 
 
 class Heater:

@@ -1,13 +1,12 @@
 """Temperature Sensor (SHTC3)."""
 
-import time
-
-import adafruit_shtc3
-import board
-
 __author__ = "Matt Martini"
 __email__ = "matt.martini@imaginarywave.com"
 __version__ = "1.0.0"
+
+import time
+import adafruit_shtc3
+import board
 
 
 class SensorSHTC3:
