@@ -5,4 +5,5 @@ __version__ = "0.2.1"
 
 
 def main() -> None:
+    """Mushrooms main"""
     print("Hello from mushrooms!")
