@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "formatters": {
+    "simple": {
+      "format": "%(levelname)-8s - %(message)s"
+    },
+    "standard": {
+      "datefmt" : "%Y-%m-%d %H:%M:%S,uuu",
+      "format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"
+    },
+    "custom": {
+      "()" : "mushrooms.log.CustomFormatter",
+      "datefmt" : "%Y-%m-%d %H:%M:%S",
+      "format" : "%(asctime)s - %(levelname)-8s - %(filename)-12s - %(funcName)s - %(message)s"
+    },
+    "rich_custom": {
+      "()" : "mushrooms.log.CustomFormatter",
+      "format" : "%(asctime)s -  %(filename)-12s - %(funcName)s - %(message)s"
+    },
+    "custom_simple": {
+      "()" : "mushrooms.log.CustomFormatter",
+      "format" : "%(levelname)-8s %(funcName)-10s - %(message)s"
+    },
+    "rich_simple": {
+      "()" : "mushrooms.log.CustomFormatter",
+      "datefmt" : "[%X]",
+      "format" : "%(funcName)-10s - %(message)s"
+    }
+  },
+  "filters": {
+    "warnings_and_below": {
+      "()" : "mushrooms.log.filter_maker",
+      "level": "WARNING"
+    }
+  },
+  "handlers": {
+    "rich_stdout": {
+      "class": "rich.logging.RichHandler",
+      "level": "INFO",
+      "formatter": "rich_simple",
+      "filters": ["warnings_and_below"]
+    },
+    "stdout": {
+      "class": "logging.StreamHandler",
+      "level": "INFO",
+      "formatter": "custom_simple",
+      "stream": "ext://sys.stdout",
+      "filters": ["warnings_and_below"]
+    },
+    "rich_stderr": {
+      "class": "rich.logging.RichHandler",
+      "level": "ERROR",
+      "formatter": "rich_simple"
+    },
+    "stderr": {
+      "class": "logging.StreamHandler",
+      "level": "ERROR",
+      "formatter": "custom_simple",
+      "stream": "ext://sys.stderr"
+    },
+    "file": {
+      "class": "logging.FileHandler",
+      "formatter": "custom",
+      "filename": "/Users/martini/Development/PythonDev/Mushrooms/logs/app.log",
+      "mode": "a"
+    }
+  },
+  "root": {
+    "level": "DEBUG",
+    "handlers": [
+      "rich_stdout",
+      "rich_stderr",
+      "file"
+    ]
+  }
+}
