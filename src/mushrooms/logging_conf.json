@@ -62,7 +62,7 @@
     "file": {
       "class": "logging.FileHandler",
       "formatter": "custom",
-      "filename": "/Users/martini/Development/PythonDev/Mushrooms/logs/app.log",
+      "filename": "/Users/martini/Development/PythonDev/MushroomHouse/logs/app.log",
       "mode": "a"
     }
   },
