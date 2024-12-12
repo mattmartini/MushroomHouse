@@ -3,7 +3,6 @@
 *.py[oc]
 .coverage
 .venv
-RPi
 __pycache__/
 build/
 dist/
