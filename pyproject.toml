@@ -19,7 +19,6 @@ dependencies = [
 [dependency-groups]
 dev = [
     "black>=24.10.0",
-    "gpiosimulator>=0.1",
     "ruff>=0.7.4",
     "ruff-lsp>=0.0.58",
     "pdoc>=15.0.0",
