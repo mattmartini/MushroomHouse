@@ -1,9 +1,12 @@
 """Tests for: Lamp"""
 
+import platform
 import pytest
 
-# from RPi import GPIO
-from RPiSim import GPIO
+if platform.system() == 'Linux':
+    from RPi import GPIO
+else:
+    from RPiMock import GPIO
 
 
 def test_setmode():
