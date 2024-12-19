@@ -1,3 +1,5 @@
+"""GPIO Module"""
+
 import threading
 
 from multiprocessing import Queue
@@ -7,8 +9,21 @@ from .PIN import PIN
 from .TypeChecker import typeassert
 from . import pwm
 
-from .constants import BOARD, BCM, LOW, HIGH, MODE_OUT, MODE_IN, PUD_DOWN, PUD_UP, PHYS_TO_BCM_MAP, GPIONames, \
-    RISING, FALLING, BOTH
+from .constants import (
+    BOARD,
+    BCM,
+    LOW,
+    HIGH,
+    MODE_OUT,
+    MODE_IN,
+    PUD_DOWN,
+    PUD_UP,
+    PHYS_TO_BCM_MAP,
+    GPIONames,
+    RISING,
+    FALLING,
+    BOTH,
+)
 
 pin_by_channel = {}
 
@@ -28,7 +43,7 @@ def to_BCM_channel(channel):
     elif _mode == BCM:
         return channel
     else:
-        raise Exception('GPIO set to unknown mode')
+        raise Exception("GPIO set to unknown mode")
 
 
 class GPIOEventHandler(threading.Thread):
@@ -50,7 +65,8 @@ class GPIOEventHandler(threading.Thread):
         """
         Enable event-detection for a given pin.
 
-        `callback` is called on the main GUI thread, so the GUI might block if you do a lot of stuff there.
+        `callback` is called on the main GUI thread, so the GUI might block
+         if you do a lot of stuff there.
         `bouncetime` is ignored since we don't have bouncy buttons here.
         """
 
@@ -62,7 +78,8 @@ class GPIOEventHandler(threading.Thread):
 
     def event_detected(self, channel):
         """
-        Event polling function. You must enable event detection using `add_event_detect` first.
+        Event polling function. You must enable event detection
+        using `add_event_detect` first.
         """
         res = self.event_detected[channel]
         self.event_detected[channel] = False
@@ -73,7 +90,7 @@ class GPIOEventHandler(threading.Thread):
         while True:
             channel, edge = self.queue.get()
             if _verbosity >= 3:
-                print("event: {} {}".format(channel, edge))
+                print(f"event: {channel} {edge}")
             pin = pin_by_channel[channel]
             if edge == RISING:
                 pin.value = 1
@@ -111,26 +128,29 @@ callback_handler = GPIOEventHandler(callback_queue)
 # GPIO LIBRARY Functions
 @typeassert(int)
 def setmode(mode):
+    """GPIO Set Mode"""
     global _mode
     _mode = mode
 
 
 @typeassert(bool)
 def setwarnings(flag):
+    """GPIO Set Warnings"""
     pass
 
 
 # @typeassert(int, int, int, int)
 def setup(channel, state, initial=None, pull_up_down=None):
+    """GPIO setup"""
 
     channel = to_BCM_channel(channel)
 
     if channel not in GPIONames:
-        raise Exception('GPIO {} does not exist'.format(channel))
+        raise Exception(f"GPIO {channel} does not exist")
 
     # check if channel is already setup
     if channel in pin_by_channel:
-        raise Exception('GPIO is already setup')
+        raise Exception("GPIO is already setup")
 
     if state == MODE_OUT:
         # GPIO is set as output, default OUT 0
@@ -157,20 +177,23 @@ def setup(channel, state, initial=None, pull_up_down=None):
 
 @typeassert(int, int)
 def output(channel, value):
+    """GPIO Output"""
 
     channel = to_BCM_channel(channel)
 
     if channel not in pin_by_channel:
         # if channel is not set up
-        raise Exception('GPIO must be setup before used (channel {})'.format(channel))
+        raise Exception(f"GPIO must be setup before used (channel {channel})")
     else:
         pin = pin_by_channel[channel]
         if pin.mode == MODE_IN:
             # if channel is set up as IN and used as an OUTPUT
-            raise Exception('GPIO must be setup as OUT (channel {})'.format(channel))
+            raise Exception(f"GPIO must be setup as OUT (channel {channel})")
 
-    if value != LOW and value != HIGH:
-        raise Exception('Output must be set to HIGH/LOW (channel {}), was set to {}'.format(channel, value))
+    if value not in {LOW, HIGH}:
+        raise Exception(
+            f"Output must be set to HIGH/LOW (channel {channel}), was set to {value}"
+        )
 
     pin = pin_by_channel[channel]
     if value == LOW:
@@ -183,17 +206,18 @@ def output(channel, value):
 
 @typeassert(int)
 def input(channel):
+    """GPIO Input"""
 
     channel = to_BCM_channel(channel)
 
     if channel not in pin_by_channel:
         # if channel is not setup
-        raise Exception('GPIO must be setup before used')
+        raise Exception("GPIO must be setup before used")
 
     pin = pin_by_channel[channel]
     if pin.mode != MODE_IN:
         # if channel is setup as OUTPUT and used as an INPUT
-        raise Exception('GPIO must be setup as IN')
+        raise Exception("GPIO must be setup as IN")
 
     pin = pin_by_channel[channel]
     if pin.value == 1:
@@ -216,13 +240,15 @@ event_detected = callback_handler.event_detected
 
 
 def PWM(channel, frequency):
+    """PWM method"""
     pin = pin_by_channel[to_BCM_channel(channel)]
     return pwm.PWM(command_queue, pin, channel, frequency)
 
 
 def cleanup():
-    # instead of hard-terminating the process we could also send a command telling it to shut down, but it's not really
-    # necessary to do that
+    """Cleanup"""
+    # instead of hard-terminating the process we could also send a command
+    # telling it to shut down, but it's not really necessary to do that
     _app.terminate()
     pass
 
@@ -244,4 +270,4 @@ def set_verbosity(verbosity=4):
     """
     global _verbosity
     _verbosity = verbosity
-    command_queue.put(("set verbosity", (verbosity, ), None))
+    command_queue.put(("set verbosity", (verbosity,), None))

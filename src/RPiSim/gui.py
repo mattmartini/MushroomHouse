@@ -1,3 +1,5 @@
+"""GPIO GUI"""
+
 import queue
 from tkinter import Label, Button
 import tkinter as tk
@@ -15,14 +17,16 @@ class App(Process):
     """
     The process running the GUI, and only the GUI.
 
-    Note that you can NOT call any methods on this class from outside it. Instead, you must add a tuple containing
+    Note that you can NOT call any methods on this class from outside it.
+    Instead, you must add a tuple containing
     `(method_name, args, kwargs)` to the command_pipe.
 
-    Also, we will assume that each channel is in BCM format. Since we do not interact with any outside caller, this is a
-    safe assumption.
+    Also, we will assume that each channel is in BCM format. Since we do not
+    interact with any outside caller, this is a safe assumption.
     """
 
     def __init__(self, command_queue, in_event_queue):
+        """Initialize App"""
 
         # connection to the other process
         self.command_queue = command_queue
@@ -46,7 +50,7 @@ class App(Process):
         """
 
         commands = {
-            '': self.command_null,
+            "": self.command_null,
             "setup out channel": self.command_setup_out,
             "setup in channel": self.command_setup_in,
             "set out channel": self.command_set_out_value,
@@ -67,6 +71,7 @@ class App(Process):
         self.root.after(100, self.run_command)
 
     def command_null(self, command_name, *args, **kwargs):
+        """Command Null"""
         if self.verbosity >= 1:
             print("received unknown command:", command_name, args, kwargs)
 
@@ -94,7 +99,7 @@ class App(Process):
     def command_set_out_value(self, command, channel, value):
 
         if self.verbosity >= 4:
-            print("setting output {} to {}".format(channel, value))
+            print(f"setting output {channel} to {value}")
         pin = self.pin_by_channel[channel]
         pin.value = value
 
@@ -102,7 +107,7 @@ class App(Process):
 
     def command_setup_pwm(self, command, channel, freq):
         if self.verbosity >= 3:
-            print("set up PWM on {} at {} Hz".format(channel, freq))
+            print(f"set up PWM on {channel} at {freq} Hz")
         pin = self.pin_by_channel[channel]
         pin.mode = MODE_PWM
         pin.freq = 0
@@ -113,7 +118,7 @@ class App(Process):
     def command_update_pwm(self, command, channel, freq, dc):
         dc = dc / 100
         if self.verbosity >= 4:
-            print("setting PWM on {} at {} Hz to {}".format(channel, freq, dc))
+            print(f"setting PWM on {channel} at {freq} Hz to {dc}")
         pin = self.pin_by_channel[channel]
         pin.freq = freq
         pin.value = dc
@@ -166,14 +171,12 @@ class App(Process):
             )
         elif pin.mode == MODE_PWM:
             if pin.freq == 0:
-                button.configure(background='DarkOliveGreen4')
-                button.configure(activebackground='DarkOliveGreen4')
+                button.configure(background="DarkOliveGreen4")
+                button.configure(activebackground="DarkOliveGreen4")
             else:
-                button.configure(background='DarkOliveGreen3')
-                button.configure(activebackground='DarkOliveGreen3')
-            button["text"] = BUTTON_TEMPLATE_PWM.format(
-                id=channel, value=pin.value
-            )
+                button.configure(background="DarkOliveGreen3")
+                button.configure(activebackground="DarkOliveGreen3")
+            button["text"] = BUTTON_TEMPLATE_PWM.format(id=channel, value=pin.value)
 
     def button_down(self, event):
         channel = event.widget.GPIO_id
@@ -196,21 +199,19 @@ class App(Process):
                 id=channel, direction="OUT", value=pin.value
             )
             if pin.value == 1:
-                btn.configure(background='tan2')
-                btn.configure(activebackground='tan2')
+                btn.configure(background="tan2")
+                btn.configure(activebackground="tan2")
             else:
-                btn.configure(background='DarkOliveGreen3')
-                btn.configure(activebackground='DarkOliveGreen3')
+                btn.configure(background="DarkOliveGreen3")
+                btn.configure(activebackground="DarkOliveGreen3")
 
     def setup_in(self, channel, value):
         btn = self.button_by_channel[channel]
-        btn.configure(background='gainsboro')
-        btn.configure(activebackground='gainsboro')
-        btn.configure(relief='raised')
+        btn.configure(background="gainsboro")
+        btn.configure(activebackground="gainsboro")
+        btn.configure(relief="raised")
         btn.configure(bd="1px")
-        btn["text"] = BUTTON_TEMPLATE.format(
-                id=channel, direction="IN", value=value
-            )
+        btn["text"] = BUTTON_TEMPLATE.format(id=channel, direction="IN", value=value)
         btn.bind("<Button-1>", self.button_down)
         btn.bind("<ButtonRelease-1>", self.button_up)
 
@@ -218,19 +219,22 @@ class App(Process):
         """
         Add a label to this window.
         """
-        l = Label(text=text, fg=color)
-        l.grid(row=row, column=column, padx=(10, 10))
+        win_label = Label(text=text, fg=color)
+        win_label.grid(row=row, column=column, padx=(10, 10))
 
     def add_button(self, channel, row, column):
         """Add a button to this window and record its channel."""
-        text = BUTTON_TEMPLATE.format(
-            id=channel, direction="OUT", value=0
-        )
+        text = BUTTON_TEMPLATE.format(id=channel, direction="OUT", value=0)
         color = "blue"
         btn = Button(
             text=text,
-            fg=color, activeforeground=color,
-            padx="1px", pady="1px", bd="0px", relief="sunken")
+            fg=color,
+            activeforeground=color,
+            padx="1px",
+            pady="1px",
+            bd="0px",
+            relief="sunken",
+        )
         btn.GPIO_id = channel
         btn.grid(row=row, column=column, padx=(10, 10), pady=(5, 5))
         self.button_by_channel[channel] = btn
@@ -238,6 +242,7 @@ class App(Process):
     def window_deleted(self):
         self.root.quit()
         import sys
+
         sys.exit()
 
     def run(self):
@@ -245,7 +250,7 @@ class App(Process):
         root.wm_title("GPIO EMULATOR")
         root.protocol("WM_DELETE_WINDOW", self.window_deleted)
 
-        root.bind('<<GPIO_update_buttons>>', self.update_all_buttons)
+        root.bind("<<GPIO_update_buttons>>", self.update_all_buttons)
 
         self.add_label("5V", "red", 0, 0)
         self.add_label("5V", "red", 0, 1)
