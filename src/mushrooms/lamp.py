@@ -5,9 +5,7 @@ __email__ = "matt.martini@imaginarywave.com"
 __version__ = "0.1.0"
 
 import time
-# from RPi import GPIO
-# from RPiMock import GPIO
-from RPiSim import GPIO
+from mushrooms import os_options
 
 CHANNEL = 26
 CYCLE_TIME = 10

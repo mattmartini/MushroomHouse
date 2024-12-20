@@ -1,12 +1,7 @@
 """Tests for: Lamp"""
 
-import platform
 import pytest
-
-if platform.system() == 'Linux':
-    from RPi import GPIO
-else:
-    from RPiMock import GPIO
+from mushrooms import os_options
 
 
 def test_setmode():
