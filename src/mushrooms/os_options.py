@@ -7,4 +7,4 @@ import platform
 if platform.system() == "Linux":
     from RPi import GPIO
 else:
-    from RPiMock import GPIO
+    from mushrooms.RPiMock import GPIO
