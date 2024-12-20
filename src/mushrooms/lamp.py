@@ -5,7 +5,7 @@ __email__ = "matt.martini@imaginarywave.com"
 __version__ = "0.1.0"
 
 import time
-from mushrooms import os_options
+from mushrooms.os_options import GPIO
 
 CHANNEL = 26
 CYCLE_TIME = 10
