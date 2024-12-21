@@ -9,7 +9,7 @@ from RPi import GPIO
 
 
 class Heater:
-    """Heater with variable power output aproximated via time slicing."""
+    """Heater with variable power output approximated via time slicing."""
 
     def __init__(self, pin=26, sw_pin=11):
         """Initialize heater."""
@@ -42,7 +42,8 @@ class Heater:
         GPIO.output(self.sw_pin, GPIO.HIGH)
 
     def heater_cycle(self, power, cycle_time=25):
-        """Use percentage of time cycle to aproximate variable power.
+        """
+        Use percentage of time cycle to aproximate variable power.
         New heater has two power modes Half (750W) and Full (1500W)
         In order to have a more natural response we use a second relay
         to control which mode the heat utilizes. For computed power
