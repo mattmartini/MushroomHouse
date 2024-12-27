@@ -78,6 +78,8 @@ class Lamp:
 if __name__ == "__main__":
 
     my_lamp = Lamp()
+    print(my_lamp)
+    print(repr(my_lamp))
 
     for x in range(3):
         my_lamp.lamp_on()
