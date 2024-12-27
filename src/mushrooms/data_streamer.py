@@ -52,7 +52,7 @@ class DataStreamer:
         self.streamer.flush()
 
     def __str__(self):
-        """Pretty Print temperatuer data."""
+        """Pretty Print temperature data."""
         lines = ["Temperature Data:"]
         lines.append(f"Greenhouse Temperature: {self.temp}")
         lines.append(f"Outside Temperature: {self.out_temp}")
