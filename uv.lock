@@ -598,6 +598,7 @@ dev = [
     { name = "pytest-sugar" },
     { name = "ruff" },
     { name = "ruff-lsp" },
+    { name = "wat-inspector" },
 ]
 
 [package.metadata]
@@ -626,6 +627,7 @@ dev = [
     { name = "pytest-sugar", specifier = ">=1.0.0" },
     { name = "ruff", specifier = ">=0.7.4" },
     { name = "ruff-lsp", specifier = ">=0.0.58" },
+    { name = "wat-inspector", specifier = ">=0.4.3" },
 ]
 
 [[package]]
@@ -1090,6 +1092,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/ed/63/22ba4ebfe7430b76388e7cd448d5478814d3032121827c12a2cc287e2260/urllib3-2.2.3.tar.gz", hash = "sha256:e7d814a81dad81e6caf2ec9fdedb284ecc9c73076b62654547cc64ccdcae26e9", size = 300677 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ce/d9/5f4c13cecde62396b0d3fe530a50ccea91e7dfc1ccf0e09c228841bb5ba8/urllib3-2.2.3-py3-none-any.whl", hash = "sha256:ca899ca043dcb1bafa3e262d73aa25c465bfb49e0bd9dd5d59f1d0acba2f8fac", size = 126338 },
+]
+
+[[package]]
+name = "wat-inspector"
+version = "0.4.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/71/ed/463950964282fb8e40d363baeba3b2852b3dba3c1acea538e553959fa721/wat_inspector-0.4.3.tar.gz", hash = "sha256:1c47c4943eec631d7d6412f4e6a225fa29c21db30143728d6bbb6f873790ec77", size = 23023 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0e/d0/05abf7dae933697d882ff7e410afb9b02e32640cc770cad2a63428e14f90/wat_inspector-0.4.3-py3-none-any.whl", hash = "sha256:b739b8779ccd729503caa8912cf1d1c59eba3762707f40ed6dbb92434af3bd1f", size = 15042 },
 ]
 
 [[package]]
