@@ -15,7 +15,8 @@ CYCLE_TIME = 10
 class Lamp:
     """Lamp"""
 
-    def __init__(self, pin=CHANNEL, cycle_time=CYCLE_TIME):
+    # def __init__(self, pin=CHANNEL, cycle_time=CYCLE_TIME):
+    def __init__(self, pin=26, cycle_time=10):
         """Initialize lamp."""
         self.pin = pin
         self.cycle_time = cycle_time

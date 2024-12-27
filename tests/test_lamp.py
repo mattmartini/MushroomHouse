@@ -10,14 +10,20 @@ def test_lamp():
     """Test lamp"""
 
     CHANNEL = 26
+    CYCLE_TIME = 10
+
+    my_lamp = Lamp(channel=CHANNEL, cycle_time=CYCLE_TIME)
+    print(my_lamp)
+    print(repr(my_lamp))
+
     for x in range(3):
-        lamp_on(CHANNEL)
+        my_lamp.lamp_on()
         time.sleep(1.0)
-        lamp_off(CHANNEL)
+        my_lamp.lamp_off()
         time.sleep(1.0)
 
-    lamp_cycle(20)
-    lamp_cycle(80)
+    my_lamp.lamp_cycle(20)
+    my_lamp.lamp_cycle(80)
 
-    lamp_off(CHANNEL)
+    my_lamp.lamp_off()
     GPIO.cleanup()
