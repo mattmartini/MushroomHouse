@@ -1,0 +1,21 @@
+#!/bin/sh
+
+PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/root/bin
+
+exec 2>&1
+exec envuidgid martini envdir /var/mushrooms/env /usr/bin/python /home/martini/MushroomHouse/src/mushrooms/controller.py
+
+
+
+#exec setlock /run/lock/controller.lock setuidgid pi envdir /var/greenhouse/env /usr/bin/python /home/pi/gpio/greenhouse/src/controller.py
+# exec /home/pi/gpio/greenhouse/src/daemon.sh
+
+# /usr/local/sbin/daemonize -a -v \
+#                           -c ${dir} \
+#                           -p /run/${cmd}.pid \
+#                           -l /run/lock/${cmd}.lock \
+#                           -E BUCKET_NAME='<REDACTED>' \
+#                           -E BUCKET_KEY='<REDACTED>' \
+#                           -E ACCESS_KEY='<REDACTED>' \
+#                           -u pi /usr/bin/python3  ${dir}/${cmd}.py
+

@@ -3,6 +3,11 @@
 *.py[oc]
 .coverage
 .venv
+ACCESS_KEY
+BUCKET_KEY
+BUCKET_NAME
+supervise/**
+log/supervise/**
 __pycache__/
 build/
 dist/
