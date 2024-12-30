@@ -1,6 +1,18 @@
 """Test Fixtures"""
 
+import platform
 import pytest
+
+# On the production platform (Rapsberry Pi: Linux)
+# On the development environment (Mac: Darwin)
+collect_ignore = []
+if platform.system() == "Linux":
+    collect_ignore.append("RPiMock")
+else:
+    pass
+
+
+
 # from robotpuzzle.buffer import Buffer
 # from robotpuzzle.node import Node
 # from robotpuzzle.circles import CDLL
