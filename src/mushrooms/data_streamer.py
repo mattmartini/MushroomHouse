@@ -28,6 +28,32 @@ class DataStreamer:
             bucket_name=BUCKET_NAME, bucket_key=BUCKET_KEY, access_key=ACCESS_KEY
         )
 
+    def __del__(self):
+        """Delete DataStreamer"""
+        # self.logger.debug("Delete Streamer")
+
+    def __repr__(self):
+        """DataStreamer repr"""
+        string = f"DataStreamer({self.temp:0.2f}, "
+        string += f"{self.goal_temp:0.2f}, "
+        string += f"{self.out_temp:0.2f}, "
+        string += f"{self.hum:0.2f}, "
+        string += f"{self.pwr:0.2f}"
+        string += ")"
+        return string
+
+    def __str__(self):
+        """Print DataStreamer."""
+        string = "┌──────────────────────────────┐\n"
+        string += "│ Temperature Data:            │\n"
+        string += f"│ Greenhouse Temperature: {self.temp:0.1f} │\n"
+        string += f"│ Outside Temperature: {self.out_temp:0.1f} │\n"
+        string += f"│ Goal Temperature: {self.goal_temp:0.1f} │\n"
+        string += f"│ Humidity: {self.hum:0.2f} │\n"
+        string += f"│ Power: {self.pwr:0.2f} │\n"
+        string += "└──────────────────────────────┘"
+        return string
+
     def load_data(self, temp, goal_temp, out_temp, hum, pwr):
         """Load next data samples"""
         self.temp = format(temp, ".2f")
@@ -50,16 +76,6 @@ class DataStreamer:
     def cleanup(self):
         """Close resources."""
         self.streamer.flush()
-
-    def __str__(self):
-        """Pretty Print temperature data."""
-        lines = ["Temperature Data:"]
-        lines.append(f"Greenhouse Temperature: {self.temp}")
-        lines.append(f"Outside Temperature: {self.out_temp}")
-        lines.append(f"Goal Temperature: {self.goal_temp}")
-        lines.append(f"Humidity: {self.hum}")
-        lines.append(f"Power: {self.pwr}")
-        return "\n".join(lines)
 
 
 def test():
