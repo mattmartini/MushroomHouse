@@ -1,8 +1,10 @@
 """Tests for: Lamp"""
 
+import time
 import pytest
 from mushrooms.lamp import Lamp
 from mushrooms.os_options import GPIO
+
 
 # @pytest.mark.skip
 def test_lamp():
