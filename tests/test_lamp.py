@@ -1,9 +1,8 @@
 """Tests for: Lamp"""
 
 import pytest
+from mushrooms.lamp import Lamp
 from mushrooms.os_options import GPIO
-from mushrooms import lamp
-
 
 # @pytest.mark.skip
 def test_lamp():
@@ -12,7 +11,7 @@ def test_lamp():
     CHANNEL = 26
     CYCLE_TIME = 10
 
-    my_lamp = Lamp(channel=CHANNEL, cycle_time=CYCLE_TIME)
+    my_lamp = Lamp(pin=CHANNEL, cycle_time=CYCLE_TIME)
     print(my_lamp)
     print(repr(my_lamp))
 
