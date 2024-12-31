@@ -42,11 +42,11 @@ class Lamp:
 
     def __str__(self):
         """Print Lamp."""
-        string =   "┌──────────────────────────────┐\n"
-        string +=  "│ Lamp:                        │\n"
+        string = "┌──────────────────────────────┐\n"
+        string += "│ Lamp:                        │\n"
         string += f"│ Channel(BCM pin)={self.pin:0d}          │\n"
         string += f"│ Cycle Time(s)={self.cycle_time:0.1f}           │\n"
-        string +=  "└──────────────────────────────┘"
+        string += "└──────────────────────────────┘"
         return string
 
     def lamp_on(self):
