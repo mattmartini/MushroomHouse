@@ -24,7 +24,6 @@ class LED:
 
     def __del__(self):
         """Delete LED"""
-        self.cleanup()
         self.logger.debug("Delete LED")
 
     def __repr__(self):
@@ -37,8 +36,8 @@ class LED:
         """Print LED"""
         string = "┌────────────────┐\n"
         string += "│ LED:           │\n"
-        string += f"│ Pin={self.channel}     │\n"
-        string += f"│ val={self.led.value}   │\n"
+        string += f"│ Pin={self.channel}        │\n"
+        string += f"│ Value={self.led.value}    │\n"
         string += "└────────────────┘"
         return string
 
