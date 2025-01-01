@@ -7,6 +7,7 @@ __version__ = "1.0.0"
 import time
 import adafruit_shtc3
 import board
+from mushrooms import log
 
 
 class SensorSHTC3:
@@ -17,6 +18,18 @@ class SensorSHTC3:
         self.scale = scale
         self.i2c = board.I2C()  # uses board.SCL and board.SDA
         self.sht_sensor = adafruit_shtc3.SHTC3(self.i2c)
+        self.logger = log.get_logger()
+        self.logger.debug("Initialize SHTC3 Sensor")
+
+    def __del__(self):
+        """Delete SHTC3 Sensor"""
+        self.logger.debug("Delete SHTC3 Sensor")
+
+    def __repr__(self):
+        """SHTC3 Sensor repr"""
+        string = f"SHTC3({self.scale}"
+        string += ")"
+        return string
 
     def convert_c_to_f(self, temp_c):
         """Convert temperature from C to F"""
@@ -37,6 +50,7 @@ class SensorSHTC3:
 
     def cleanup(self):
         """Close resources."""
+        self.logger.debug("SHTC3 Sensor cleanup")
         pass
 
 
