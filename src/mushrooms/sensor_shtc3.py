@@ -44,7 +44,7 @@ class SensorSHTC3:
             except RuntimeError:
                 time.sleep(0.5)
                 continue
-        self.logger.debug("SHTC3 temp: %0.3f C hum: %0.3f %", temp_c, humidity)
+        self.logger.debug("SHTC3 temp: %0.3f C hum: %0.3f %%", temp_c, humidity)
         if self.scale == "f":
             return self.convert_c_to_f(temp_c), humidity
         return temp_c, humidity
