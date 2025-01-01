@@ -62,8 +62,9 @@ class LED:
 def test():
     """Test LED blink."""
     my_led = LED(channel="D26")
+    print(my_led)
 
-    for _ in range(10):
+    for _ in range(5):
         my_led.turn_on()
         time.sleep(1.0)
         my_led.turn_off()
