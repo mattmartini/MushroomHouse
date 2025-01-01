@@ -20,11 +20,11 @@ class LED:
         self.led = digitalio.DigitalInOut(pin)
         self.led.direction = digitalio.Direction.OUTPUT
         self.logger = log.get_logger()
-        self.logger.debug("Initialize LED")
+        self.logger.debug("Initialize LED %s", self.channel)
 
     def __del__(self):
         """Delete LED"""
-        self.logger.debug("Delete LED")
+        self.logger.debug("Delete LED %s", self.channel)
 
     def __repr__(self):
         """LED repr"""
