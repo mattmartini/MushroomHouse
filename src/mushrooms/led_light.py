@@ -28,7 +28,7 @@ class LED:
 
     def __repr__(self):
         """LED repr"""
-        string = f"LED({self.channel}, "
+        string = f"LED({self.channel}"
         string += ")"
         return string
 
