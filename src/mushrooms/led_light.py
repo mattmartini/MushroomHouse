@@ -44,18 +44,18 @@ class LED:
     def turn_on(self):
         """Turn the LED on."""
         self.led.value = True
-        self.logger.debug("LED on")
+        self.logger.debug("LED %s on", self.channel)
 
     def turn_off(self):
         """Turn the LED off."""
         self.led.value = False
-        self.logger.debug("LED off")
+        self.logger.debug("LED %s off", self.channel)
 
     def cleanup(self):
         """Close resources."""
         self.turn_off()
+        self.logger.debug("LED %s cleanup", self.channel)
         self.led.deinit()
-        self.logger.debug("LED cleanup")
 
 
 def test():
@@ -63,7 +63,7 @@ def test():
     my_led = LED(channel="D26")
     print(my_led)
 
-    my_led2 = LED(channel="D26")
+    my_led2 = LED(channel="D16")
     print(my_led2)
 
     my_led2.turn_on()
