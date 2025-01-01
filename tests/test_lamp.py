@@ -11,7 +11,7 @@ def test_lamp():
     """Test lamp"""
 
     CHANNEL = 26
-    CYCLE_TIME = 10
+    CYCLE_TIME = 4
 
     my_lamp = Lamp(pin=CHANNEL, cycle_time=CYCLE_TIME)
     print(my_lamp)
