@@ -14,6 +14,6 @@ def test_sensor_shtc3():
     tempf, humf = my_sensor.read_temp()
 
 
-    assert repr(my_sensor) == "SHTC3(D26)"
+    assert repr(my_sensor) == "SHTC3(f)"
 
 

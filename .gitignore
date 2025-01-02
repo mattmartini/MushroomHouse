@@ -6,8 +6,6 @@
 ACCESS_KEY
 BUCKET_KEY
 BUCKET_NAME
-service/supervise/**
-service/log/supervise/**
 __pycache__/
 build/
 dist/
@@ -15,5 +13,7 @@ htmlcov
 logs/**
 pytest_report.html
 scratch
+service/log/supervise/**
+service/supervise/**
 tests/assets/
 wheels/
