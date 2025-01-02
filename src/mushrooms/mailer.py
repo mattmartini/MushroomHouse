@@ -6,6 +6,7 @@ __version__ = "0.3.0"
 
 import signal
 import smtplib
+from mushrooms import log
 
 
 class Mailer:
@@ -17,16 +18,23 @@ class Mailer:
         self.message = message
         self.header = ""
         self.silence = False
-        self.sender = "pi@greenhouse.home.arpa"
+        self.sender = "martini@mushroomhouse.home.arpa"
         self.receivers = [
             "matt.martin@gmail.com",
             "martini@cathal.home.arpa",
             "5167965796@vtext.com",
         ]
+        self.logger = log.get_logger()
+        self.logger.debug("Initialize Mailer")
+
+    def __del__(self):
+        """Ensure cleanup."""
+        self.cleanup()
+        self.logger.debug("Delete Mailer")
 
     def send(self):
         """Send prepaired message via smtp"""
-        self.header = """From: Greenhouse Controller <pi@greenhouse.home.arpa>
+        self.header = """From: MushroomHouse Controller <martini@mushroomhouse.home.arpa>
 To: Matt Martini <matt.martini@gmail.com>
 CC: <5167965796@vtext.com>, <martini@cathal.home.arpa>
 """
@@ -36,10 +44,10 @@ CC: <5167965796@vtext.com>, <martini@cathal.home.arpa>
             try:
                 smtp_obj = smtplib.SMTP("cathal.home.arpa")
                 smtp_obj.sendmail(self.sender, self.receivers, self.message)
-                print("Successfully sent email")
+                self.logger.debug("Successfully sent email")
                 self.stall()
             except smtplib.SMTPException:
-                print("Error: unable to send email")
+                self.logger.debug("Error: unable to send email")
 
     def stall_handler(self, *args):
         """Reset silence flag afer alarm goes off."""
@@ -50,15 +58,13 @@ CC: <5167965796@vtext.com>, <martini@cathal.home.arpa>
         self.silence = True
         signal.signal(signal.SIGALRM, self.stall_handler)
         signal.alarm(600)
+        self.logger.debug("Wait 10 minutes before sending another email")
 
     def cleanup(self):
         """Cleanup alarm."""
         signal.alarm(0)
         self.silence = False
-
-    def __del__(self):
-        """Ensure cleanup."""
-        self.cleanup()
+        self.logger.debug("Mailer cleanup")
 
 
 def test():
