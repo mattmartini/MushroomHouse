@@ -7,6 +7,7 @@ __version__ = "0.3.0"
 import glob
 import os
 import time
+from mushrooms import log
 
 
 class SensorDS18B20:
@@ -24,6 +25,18 @@ class SensorDS18B20:
         # Get all the filenames begin with 28 in the path base_dir.
         self.device_folder = glob.glob(self.base_dir + "28*")[0]
         self.device_file = self.device_folder + "/w1_slave"
+        self.logger = log.get_logger()
+        self.logger.debug("Initialize DS18B20 Sensor")
+
+    def __del__(self):
+        """Delete DS18B20 Sensor"""
+        self.logger.debug("Delete DS18B20 Sensor")
+
+    def __repr__(self):
+        """DS18B20 Sensor repr"""
+        string = f"DS18B20({self.scale}"
+        string += ")"
+        return string
 
     def read_rom(self):
         """Get name of device."""
@@ -65,6 +78,7 @@ class SensorDS18B20:
             # Read the temperature .
             temp_string = lines[1][equals_pos + 2 :]
             temp_c = float(temp_string) / 1000.0
+            self.logger.debug("DS18B20 temp: %0.3f C", temp_c)
             if self.scale == "f":
                 return self.convert_c_to_f(temp_c)
             return temp_c
