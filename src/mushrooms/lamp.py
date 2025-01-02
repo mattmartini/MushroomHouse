@@ -2,7 +2,7 @@
 
 __author__ = "Matt Martini"
 __email__ = "matt.martini@imaginarywave.com"
-__version__ = "0.1.0"
+__version__ = "0.3.0"
 
 import time
 from mushrooms.os_options import GPIO

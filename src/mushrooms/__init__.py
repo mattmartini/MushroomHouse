@@ -1,7 +1,7 @@
 """Mushrooms Init"""
 
-__date__ = '2024-11-27'
-__version__ = "0.2.1"
+__date__ = '2025-01-01'
+__version__ = "0.3.0"
 
 
 def main() -> None:

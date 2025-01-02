@@ -2,7 +2,7 @@
 
 __author__ = "Matt Martini"
 __email__ = "matt.martini@imaginarywave.com"
-__version__ = "1.0.0"
+__version__ = "0.3.0"
 
 import signal
 import time
