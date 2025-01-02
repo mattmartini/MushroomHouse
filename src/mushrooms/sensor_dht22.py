@@ -7,6 +7,7 @@ __version__ = "1.0.0"
 import time
 import adafruit_dht
 import board
+from mushrooms import log
 
 
 class SensorDHT22:
@@ -14,10 +15,24 @@ class SensorDHT22:
 
     def __init__(self, pin="D18", scale="f"):
         """Initialize sensor."""
+
         self.pin = pin
         self.scale = scale
         # TODO find out how to pass pin to board
         self.dht_sensor = adafruit_dht.DHT22(board.D18, use_pulseio=True)
+        self.logger = log.get_logger()
+        self.logger.debug("Initialize DHT22 Sensor")
+
+    def __del__(self):
+        """Delete DHT22 Sensor"""
+        self.logger.debug("Delete DHT22 Sensor")
+
+    def __repr__(self):
+        """SHTC3 Sensor repr"""
+        string = f"DHT22(pin: {self.pin}, "
+        string += f"scale: {self.scale}"
+        string += ")"
+        return string
 
     def convert_c_to_f(self, temp_c):
         """Convert temperature from C to F"""
@@ -33,6 +48,7 @@ class SensorDHT22:
             except RuntimeError:
                 time.sleep(0.5)
                 continue
+        self.logger.debug("DTH22 temp: %0.3f C hum: %0.3f %%", temp_c, humidity)
         if self.scale == "f":
             return self.convert_c_to_f(temp_c), humidity
         return temp_c, humidity
@@ -40,6 +56,7 @@ class SensorDHT22:
     def cleanup(self):
         """Close resources."""
         self.dht_sensor.exit()
+        self.logger.debug("DTH22 Sensor cleanup")
 
 
 def test():
@@ -51,7 +68,7 @@ def test():
     print(f" hum: {humf:3.3f} %")
     my_sensor.cleanup()
 
-    time.sleep(3)
+    time.sleep(2)
 
     my_c_sensor = SensorDHT22(scale="c")
     tempc, humc = my_c_sensor.read_temp()
