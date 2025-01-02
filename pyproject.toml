@@ -13,25 +13,26 @@ dependencies = [
     "adafruit-circuitpython-shtc3>=1.1.15",
     "board>=1.0",
     "rich>=13.9.4",
+    "rpi-gpio>=0.7.1; sys_platform == 'linux'",
     "simple-pid>=2.0.1",
 ]
 
 [dependency-groups]
 dev = [
     "black>=24.10.0",
-    "ruff>=0.7.4",
-    "ruff-lsp>=0.0.58",
-    "pdoc>=15.0.0",
-    "flake8>=7.1.1",
-    "flake8-pytest-style>=2.0.0",
-    "bump-my-version>=0.28.1",
-    "pytest>=8.3.3",
-    "pylint>=3.3.1",
     "bpython>=0.24",
-    "pytest-random-order>=1.1.1",
-    "pytest-html>=4.1.1",
+    "bump-my-version>=0.28.1",
+    "flake8-pytest-style>=2.0.0",
+    "flake8>=7.1.1",
+    "pdoc>=15.0.0",
+    "pylint>=3.3.1",
     "pytest-cov>=6.0.0",
+    "pytest-html>=4.1.1",
+    "pytest-random-order>=1.1.1",
     "pytest-sugar>=1.0.0",
+    "pytest>=8.3.3",
+    "ruff-lsp>=0.0.58",
+    "ruff>=0.7.4",
     "wat-inspector>=0.4.3",
 ]
 
