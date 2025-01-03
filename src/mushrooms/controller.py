@@ -89,7 +89,7 @@ def toggler(value):
 def cleanup():
     """Close resources."""
     streamer.cleanup()
-    heater.cleanup()
+    # heater.cleanup()
     # dht_sensor.cleanup()
     sht_sensor.cleanup()
     logger.info("Exiting Humidity Temperature Control")
