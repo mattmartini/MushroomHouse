@@ -10,7 +10,7 @@ from rich import inspect
 from mushrooms import log
 
 PKG_PATH = str(pkgutil.resolve_name("mushrooms").__path__[0])
-DEFAULTCONFIGFILE = PKG_PATH + "/greenhouse.conf"
+DEFAULTCONFIGFILE = PKG_PATH + "/mushrooms.conf"
 
 
 class Config:
@@ -99,7 +99,7 @@ class Config:
         """read the values from the config file"""
         self.logger.debug("Read Config")
         config = (
-            pkgutil.get_data("mushrooms", "greenhouse.conf")
+            pkgutil.get_data("mushrooms", "mushrooms.conf")
             .decode("utf-8")
             .rstrip("\n")
             .split(",")

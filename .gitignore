@@ -9,6 +9,7 @@ BUCKET_NAME
 __pycache__/
 build/
 dist/
+err_missed_events.txt
 htmlcov
 logs/**
 pytest_report.html
