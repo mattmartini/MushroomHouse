@@ -1,4 +1,4 @@
-"""Greenhouse Temperature Controller"""
+"""MushroomHouse Humidity Controller"""
 
 __author__ = "Matt Martini"
 __email__ = "matt.martini@imaginarywave.com"
@@ -33,7 +33,7 @@ pid.setpoint, pid.Kp, pid.Ki, pid.Kd, pid.sample_time = ctrl_config.read_config(
 
 sht_sensor = sensor_shtc3.SensorSHTC3()
 
-gh_heater = heater.Heater()
+# gh_heater = heater.Heater()
 
 streamer = data_streamer.DataStreamer(
     temp=45.0, goal_temp=40.0, out_temp=45.0, hum=90.0, pwr=0
@@ -91,7 +91,7 @@ def cleanup():
     heater.cleanup()
     # dht_sensor.cleanup()
     sht_sensor.cleanup()
-    logger.info("Exiting Greenhouse Temperature Control")
+    logger.info("Exiting Humidity Temperature Control")
 
 
 def test():
@@ -101,7 +101,7 @@ def test():
 
 def main():
     """Controller main loop"""
-    print("Starting Greenhouse Temperature Control", flush=True)
+    print("Starting Humidity Temperature Control", flush=True)
     signal_test = SignalHandler()
     while True:
         try:
@@ -120,7 +120,7 @@ def main():
             temp, hum = sht_sensor.read_temp()
 
             pwr = pid(temp)
-            gh_heater.heater_cycle(pwr, cycle_time=pid.sample_time)
+            # gh_heater.heater_cycle(pwr, cycle_time=pid.sample_time)
 
             streamer.load_data(
                 temp=temp, goal_temp=pid.setpoint, out_temp=out_temp, hum=hum, pwr=pwr
@@ -150,8 +150,8 @@ def main():
                 signal_test.usr2_now = False
 
             if temp < 35.0:
-                subject = "Greenhouse Low Temperature Alert"
-                message = f"The Greenhouse temperature is {temp:3.3f} F!"
+                subject = "Humidity Low Temperature Alert"
+                message = f"The Humidity temperature is {temp:3.3f} F!"
                 mail = mailer.Mailer(subject, message)
                 mail.send()
 
