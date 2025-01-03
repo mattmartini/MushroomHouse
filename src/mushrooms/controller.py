@@ -121,6 +121,7 @@ def main():
 
             pwr = pid(temp)
             # gh_heater.heater_cycle(pwr, cycle_time=pid.sample_time)
+            sleep(30)
 
             streamer.load_data(
                 temp=temp, goal_temp=pid.setpoint, out_temp=out_temp, hum=hum, pwr=pwr
