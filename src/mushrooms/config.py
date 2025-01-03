@@ -33,9 +33,9 @@ class Config:
         self.cycle_time = cycle_time
         self.config_file = config_file
         self.mtime = 0
-        self.create_config()
         self.logger = log.get_logger()
 
+        self.create_config()
         self.logger.debug("Initialize Config")
 
     def __del__(self):
