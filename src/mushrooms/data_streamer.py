@@ -44,14 +44,14 @@ class DataStreamer:
 
     def __str__(self):
         """Print DataStreamer."""
-        string = "┌──────────────────────────────┐\n"
-        string += "│ Temperature Data:            │\n"
-        string += f"│ Greenhouse Temperature: {self.temp:0.1f} │\n"
-        string += f"│ Outside Temperature: {self.out_temp:0.1f} │\n"
-        string += f"│ Goal Temperature: {self.goal_temp:0.1f} │\n"
-        string += f"│ Humidity: {self.hum:0.2f} │\n"
-        string += f"│ Power: {self.pwr:0.2f} │\n"
-        string += "└──────────────────────────────┘"
+        string =   "┌──────────────────────────────────┐\n"
+        string +=  "│ Temperature Data:                │\n"
+        string += f"│ MushroomHouse Temperature: {self.temp} │\n"
+        string += f"│ Outside Temperature: {self.out_temp}       │\n"
+        string += f"│ Goal Temperature: {self.goal_temp}          │\n"
+        string += f"│ Humidity: {self.hum}                  │\n"
+        string += f"│ Power: {self.pwr}                      │\n"
+        string +=  "└──────────────────────────────────┘"
         return string
 
     def load_data(self, temp, goal_temp, out_temp, hum, pwr):
@@ -84,11 +84,11 @@ def test():
     import time
 
     my_streamer = DataStreamer(
-        temp=45.0, goal_temp=68.0, out_temp=45.0, hum=90.0, pwr=0
+        temp=44.0, goal_temp=60.0, out_temp=45.0, hum=90.0, pwr=0
     )
     my_streamer.send_data()
-    time.sleep(10)
-    my_streamer.load_data(temp=47.0, goal_temp=60.0, out_temp=40.0, hum=95.0, pwr=0)
+    time.sleep(5)
+    my_streamer.load_data(temp=53.0, goal_temp=60.0, out_temp=40.0, hum=95.0, pwr=0)
     my_streamer.send_data()
     print(my_streamer)
     my_streamer.cleanup()
