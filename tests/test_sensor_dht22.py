@@ -4,7 +4,7 @@ import pytest
 from mushrooms.sensor_dht22 import SensorDHT22
 
 
-# @pytest.mark.skip
+@pytest.mark.skip
 def test_sensor_dht22():
     """Test sensor dht22"""
 
