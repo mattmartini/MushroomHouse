@@ -114,7 +114,7 @@ def main():
                     pid.Kd,
                     pid.sample_time,
                 ) = ctrl_config.read_config()
-                print(ctrl_config, flush=True)
+                logger.info(str(ctrl_config))
 
             # out_temp = ds_sensor.read_temp()
             out_temp = -99
@@ -130,9 +130,8 @@ def main():
             streamer.send_data()
 
             if signal_test.hupped_now:
-                print(ctrl_config, flush=True)
-                print("\n", flush=True)
-                print(streamer, flush=True)
+                logger.info(str(ctrl_config))
+                logger.info(str(streamer))
                 signal_test.hupped_now = False
 
             if signal_test.usr1_now:
