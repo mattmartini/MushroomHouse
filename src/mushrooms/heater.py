@@ -6,6 +6,7 @@ __version__ = "0.3.0"
 
 import time
 from RPi import GPIO
+from mushrooms import log
 
 
 class Heater:
@@ -23,6 +24,20 @@ class Heater:
         # initialize heater to off
         GPIO.output(self.pin, GPIO.LOW)
         GPIO.output(self.sw_pin, GPIO.LOW)
+        self.logger = log.get_logger()
+
+        self.logger.debug("Initialize Heater")
+
+    def __del__(self):
+        """Delete Heater"""
+        self.logger.debug("Delete Heater")
+
+    def __repr__(self):
+        """Heater repr"""
+        string = f"Heater({self.pin:d}, "
+        string += f"{self.sw_pin:d}"
+        string += ")"
+        return string
 
     def turn_on(self):
         """Turn the heater on."""
@@ -78,6 +93,7 @@ class Heater:
         self.turn_off()
         self.mode_half()
         GPIO.cleanup()
+        self.logger.debug("Cleanup Heater")
 
 
 def test():
