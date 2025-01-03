@@ -475,6 +475,15 @@ wheels = [
 ]
 
 [[package]]
+name = "isstreamer"
+version = "2.0.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/27/d6/d6b3a5592d3105ddffc455e97320668a4188250e19a9c9f70cf103f29608/ISStreamer-2.0.0.tar.gz", hash = "sha256:19d064eafdd98ed6f08a90815451d37f300efc44c3eb4f540291f8afecdde238", size = 9986 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f0/31/5975ef912c04909351dcd944e5656dcf31e2c5e4e5bdfc231cc2103ac3ff/ISStreamer-2.0.0-py3-none-any.whl", hash = "sha256:35188b74a2ca33693d1231b65d4796f56978315ff43b4d064ddf7afebb331308", size = 6656 },
+]
+
+[[package]]
 name = "jinja2"
 version = "3.1.4"
 source = { registry = "https://pypi.org/simple" }
@@ -571,13 +580,14 @@ wheels = [
 
 [[package]]
 name = "mushrooms"
-version = "0.2.1"
+version = "0.3.0"
 source = { editable = "." }
 dependencies = [
     { name = "adafruit-blinka" },
     { name = "adafruit-circuitpython-dht" },
     { name = "adafruit-circuitpython-shtc3" },
     { name = "board" },
+    { name = "isstreamer" },
     { name = "rich" },
     { name = "rpi-gpio", marker = "sys_platform == 'linux'" },
     { name = "simple-pid" },
@@ -608,6 +618,7 @@ requires-dist = [
     { name = "adafruit-circuitpython-dht", specifier = ">=4.0.6" },
     { name = "adafruit-circuitpython-shtc3", specifier = ">=1.1.15" },
     { name = "board", specifier = ">=1.0" },
+    { name = "isstreamer", specifier = ">=2.0.0" },
     { name = "rich", specifier = ">=13.9.4" },
     { name = "rpi-gpio", marker = "sys_platform == 'linux'", specifier = ">=0.7.1" },
     { name = "simple-pid", specifier = ">=2.0.1" },
