@@ -84,11 +84,11 @@ def test():
     import time
 
     my_streamer = DataStreamer(
-        temp=44.0, goal_temp=60.0, out_temp=45.0, hum=90.0, pwr=0
+        temp=47.0, goal_temp=60.0, out_temp=45.0, hum=90.0, pwr=0
     )
     my_streamer.send_data()
-    time.sleep(5)
-    my_streamer.load_data(temp=53.0, goal_temp=60.0, out_temp=40.0, hum=95.0, pwr=0)
+    time.sleep(15)
+    my_streamer.load_data(temp=55.0, goal_temp=60.0, out_temp=40.0, hum=95.0, pwr=0)
     my_streamer.send_data()
     print(my_streamer)
     my_streamer.cleanup()
