@@ -102,7 +102,7 @@ def test():
 
 def main():
     """Controller main loop"""
-    print("Starting Humidity Temperature Control", flush=True)
+    logger.info("Starting Humidity Temperature Control")
     signal_test = SignalHandler()
     while True:
         try:
