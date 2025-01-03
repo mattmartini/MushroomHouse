@@ -5,6 +5,7 @@ __email__ = "matt.martini@imaginarywave.com"
 __version__ = "0.3.0"
 
 import signal
+import time
 from simple_pid import PID
 
 from mushrooms import config
@@ -121,7 +122,7 @@ def main():
 
             pwr = pid(temp)
             # gh_heater.heater_cycle(pwr, cycle_time=pid.sample_time)
-            sleep(30)
+            time.sleep(30)
 
             streamer.load_data(
                 temp=temp, goal_temp=pid.setpoint, out_temp=out_temp, hum=hum, pwr=pwr
