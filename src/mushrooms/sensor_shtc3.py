@@ -59,6 +59,7 @@ def test():
     """Read temperature from SHTC3 sensor."""
 
     my_sensor = SensorSHTC3()
+    print(my_sensor)
     tempf, humf = my_sensor.read_temp()
     print(f"temp: {tempf:3.3f} F")
     print(f" hum: {humf:3.3f} %")
