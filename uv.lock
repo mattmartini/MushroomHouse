@@ -84,6 +84,19 @@ wheels = [
 ]
 
 [[package]]
+name = "adafruit-circuitpython-sht4x"
+version = "1.0.22"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "adafruit-blinka" },
+    { name = "adafruit-circuitpython-busdevice" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/bc/6c/bacc57bc68a4ce7a3ea4dfc4c33c9c60bcd974f3f65c304ac47f02cc8096/adafruit_circuitpython_sht4x-1.0.22.tar.gz", hash = "sha256:366ffa718b66aec472a06763479c994709781b987f5d13f59eb3b560b0f0d03e", size = 27928 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a3/db/74488d6ef20447de55bdc3f5d02538142220ce36b0c0e3a5eabfea36fc0b/adafruit_circuitpython_sht4x-1.0.22-py3-none-any.whl", hash = "sha256:c3218640eb743bf82e8d7c8cdb1e8c00e74c2589df1dacd0add8f1c34c53fb9e", size = 6350 },
+]
+
+[[package]]
 name = "adafruit-circuitpython-shtc3"
 version = "1.1.15"
 source = { registry = "https://pypi.org/simple" }
@@ -585,6 +598,7 @@ source = { editable = "." }
 dependencies = [
     { name = "adafruit-blinka" },
     { name = "adafruit-circuitpython-dht" },
+    { name = "adafruit-circuitpython-sht4x" },
     { name = "adafruit-circuitpython-shtc3" },
     { name = "board" },
     { name = "isstreamer" },
@@ -616,6 +630,7 @@ dev = [
 requires-dist = [
     { name = "adafruit-blinka", specifier = ">=8.50.0" },
     { name = "adafruit-circuitpython-dht", specifier = ">=4.0.6" },
+    { name = "adafruit-circuitpython-sht4x", specifier = ">=1.0.22" },
     { name = "adafruit-circuitpython-shtc3", specifier = ">=1.1.15" },
     { name = "board", specifier = ">=1.0" },
     { name = "isstreamer", specifier = ">=2.0.0" },
