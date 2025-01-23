@@ -72,11 +72,8 @@ class Config:
                     f"{self.set_point},{self.k_p},{self.k_i},{self.k_d},{self.cycle_time}"
                 )
         else:
-            self.logger.debug("Warning: using existing configuration file")
-            print(
-                "Warning: using existing configuration file",
-                self.config_file,
-                flush=True,
+            self.logger.warning(
+                "Warning: using existing configuration file\n%s", self.config_file
             )
         self.mtime = self.stat_config()
 
