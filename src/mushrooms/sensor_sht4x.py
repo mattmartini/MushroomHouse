@@ -20,7 +20,7 @@ class SensorSHT4x:
         self.sht_sensor = adafruit_sht4x.SHT4x(self.i2c)
         self.sht_sensor.mode = adafruit_sht4x.Mode.NOHEAT_HIGHPRECISION
         # Can also set the mode to enable heater
-        # sht.mode = adafruit_sht4x.Mode.LOWHEAT_100MS
+        # self.sht_sensor.mode = adafruit_sht4x.Mode.LOWHEAT_100MS
         self.logger = log.get_logger()
         self.logger.debug("Initialize SHT4x Sensor")
 
