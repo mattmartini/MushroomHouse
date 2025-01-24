@@ -6,4 +6,5 @@ echo "Getting Mushroom Environmental Data. Please wait 30 seconds."
 sudo svc -h /service/mushrooms
 sleep 30
 # tail -n 13 controller_*.out
-tail -n 13 /var/log/mushrooms/current | tai64nlocal | cut -d" " -f 3-
+# tail -n 13 /var/log/mushrooms/current | tai64nlocal | cut -d" " -f 3-
+tail -n 13 /var/log/mushrooms/current | cut -d" " -f 2-
