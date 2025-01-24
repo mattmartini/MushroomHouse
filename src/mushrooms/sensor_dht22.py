@@ -63,6 +63,7 @@ def test():
     """Read temperature from DHT22 sensor."""
 
     my_sensor = SensorDHT22()
+    print(my_sensor)
     tempf, humf = my_sensor.read_temp()
     print(f"temp: {tempf:3.3f} F")
     print(f" hum: {humf:3.3f} %")

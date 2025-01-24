@@ -89,6 +89,7 @@ def test():
 
     my_sensor = SensorDS18B20()
 
+    print(my_sensor)
     print(f" rom: {my_sensor.read_rom()}")
     print(f"temp: {my_sensor.read_temp():3.3f} F")
 
