@@ -61,7 +61,7 @@
     },
     "file": {
       "class": "logging.FileHandler",
-      "formatter": "custom_simple",
+      "formatter": "custom",
       "filename": "/var/log/mushrooms/app.log",
       "mode": "a"
     }

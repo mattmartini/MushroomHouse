@@ -63,11 +63,11 @@ def test():
     my_led = LED(channel="D26")
     print(my_led)
 
-    my_led2 = LED(channel="D16")
+    my_led2 = LED(channel="D11")
     print(my_led2)
 
     my_led2.turn_on()
-    for _ in range(5):
+    for _ in range(4):
         my_led.turn_on()
         my_led2.turn_off()
         time.sleep(1.0)

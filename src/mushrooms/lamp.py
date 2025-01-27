@@ -5,59 +5,58 @@ __email__ = "matt.martini@imaginarywave.com"
 __version__ = "0.3.0"
 
 import time
-from mushrooms.os_options import GPIO
+import board
+import digitalio
 from mushrooms import log
-
-CHANNEL = 26
-CYCLE_TIME = 10
 
 
 class Lamp:
     """Lamp"""
 
-    # def __init__(self, pin=CHANNEL, cycle_time=CYCLE_TIME):
-    def __init__(self, pin=26, cycle_time=10):
+    def __init__(self, channel="D26", cycle_time=10):
         """Initialize lamp."""
-        self.pin = pin
+        self.channel = channel
         self.cycle_time = cycle_time
-        self.logger = log.get_logger()
 
-        # GPIO Setup
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.pin, GPIO.OUT)
+        pin = getattr(board, self.channel)
+        self.light = digitalio.DigitalInOut(pin)
+        self.light.direction = digitalio.Direction.OUTPUT
+
         # initialize Lamp to off
-        GPIO.output(self.pin, GPIO.LOW)
-        self.logger.debug("Initialize Lamp")
+        self.light.value = False
+
+        self.logger = log.get_logger()
+        self.logger.debug("Initialize Lamp %s", self.channel)
 
     def __del__(self):
         """Delete lamp"""
-        self.logger.debug("Delete Lamp")
+        self.logger.debug("Delete Lamp %s", self.channel)
 
     def __repr__(self):
         """Lamp repr"""
-        string = f"Lamp({self.pin:0d}, "
+        string = f"Lamp({self.channel}, "
         string += f"{self.cycle_time:0.1f}"
         string += ")"
         return string
 
     def __str__(self):
         """Print Lamp."""
-        string = "┌──────────────────────────────┐\n"
-        string += "│ Lamp:                        │\n"
-        string += f"│ Channel(BCM pin)={self.pin:0d}          │\n"
-        string += f"│ Cycle Time(s)={self.cycle_time:0.1f}           │\n"
-        string += "└──────────────────────────────┘"
+        string = "┌─────────────────────────┐\n"
+        string += "│ Lamp:                   │\n"
+        string += f"│ Channel(BCM pin)={self.channel}    │\n"
+        string += f"│ Cycle Time(s)={self.cycle_time:0.1f}      │\n"
+        string += "└─────────────────────────┘"
         return string
 
     def lamp_on(self):
         """Turn the lamp on."""
-        GPIO.output(self.pin, GPIO.HIGH)
-        self.logger.debug("Lamp On")
+        self.light.value = True
+        self.logger.debug("Lamp %s on", self.channel)
 
     def lamp_off(self):
         """Turn the lamp off."""
-        GPIO.output(self.pin, GPIO.LOW)
-        self.logger.debug("Lamp Off")
+        self.light.value = False
+        self.logger.debug("Lamp %s off", self.channel)
 
     def lamp_cycle(self, power):
         """use percentage of time cycle to approximate variable power"""
@@ -75,14 +74,20 @@ class Lamp:
             self.lamp_off()
             time.sleep(off_time)
 
+    def cleanup(self):
+        """Close resources."""
+        self.lamp_off()
+        self.logger.debug("Lamp %s cleanup", self.channel)
+        self.light.deinit()
 
-if __name__ == "__main__":
 
-    my_lamp = Lamp()
+def test():
+    """Test Lamp blink."""
+    my_lamp = Lamp(channel="D26")
     print(my_lamp)
     print(repr(my_lamp))
 
-    for x in range(3):
+    for x in range(2):
         my_lamp.lamp_on()
         time.sleep(1.0)
         my_lamp.lamp_off()
@@ -91,5 +96,8 @@ if __name__ == "__main__":
     my_lamp.lamp_cycle(20)
     my_lamp.lamp_cycle(80)
 
-    my_lamp.lamp_off()
-    GPIO.cleanup()
+    my_lamp.cleanup()
+
+
+if __name__ == "__main__":
+    test()

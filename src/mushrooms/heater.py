@@ -5,56 +5,73 @@ __email__ = "matt.martini@imaginarywave.com"
 __version__ = "0.3.0"
 
 import time
-from RPi import GPIO
+import board
+import digitalio
 from mushrooms import log
 
 
 class Heater:
     """Heater with variable power output approximated via time slicing."""
 
-    def __init__(self, pin=26, sw_pin=11):
+    def __init__(self, channel="D26", sw_channel="D11"):
         """Initialize heater."""
-        self.pin = pin
-        self.sw_pin = sw_pin
+        self.channel = channel
+        self.sw_channel = sw_channel
+        # heating element
+        pin = getattr(board, self.channel)
+        self.heat = digitalio.DigitalInOut(pin)
+        self.heat.direction = digitalio.Direction.OUTPUT
+        # low/high power switch
+        sw_pin = getattr(board, self.sw_channel)
+        self.high = digitalio.DigitalInOut(sw_pin)
+        self.high.direction = digitalio.Direction.OUTPUT
 
-        # GPIO Setup
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self.pin, GPIO.OUT)
-        GPIO.setup(self.sw_pin, GPIO.OUT)
         # initialize heater to off
-        GPIO.output(self.pin, GPIO.LOW)
-        GPIO.output(self.sw_pin, GPIO.LOW)
-        self.logger = log.get_logger()
+        self.heat.value = False
+        self.high.value = False
 
-        self.logger.debug("Initialize Heater")
+        self.logger = log.get_logger()
+        self.logger.debug("Initialize Heater %s %s", self.channel, self.sw_channel)
 
     def __del__(self):
         """Delete Heater"""
-        self.logger.debug("Delete Heater")
+        self.logger.debug("Delete Heater %s %s", self.channel, self.sw_channel)
 
     def __repr__(self):
         """Heater repr"""
-        string = f"Heater({self.pin:d}, "
-        string += f"{self.sw_pin:d}"
+        string = f"Heater({self.channel}, "
+        string += f"{self.sw_channel}"
         string += ")"
+        return string
+
+    def __str__(self):
+        """Print Heater."""
+        string = "┌──────────────────────────────┐\n"
+        string += "│ Heater:                      │\n"
+        string += f"│ Channel(BCM pin)={self.channel}         │\n"
+        string += f"│ Switch (BCM pin)={self.sw_channel}         │\n"
+        string += "└──────────────────────────────┘"
         return string
 
     def turn_on(self):
         """Turn the heater on."""
-        GPIO.output(self.pin, GPIO.HIGH)
+        self.heat.value = True
+        self.logger.debug("Heater %s on", self.channel)
 
     def turn_off(self):
         """Turn the heater off."""
-        GPIO.output(self.pin, GPIO.LOW)
+        self.heat.value = False
+        self.logger.debug("Heater %s off", self.channel)
 
     def mode_half(self):
         """Switch the heater to Half Power mode."""
-        GPIO.output(self.sw_pin, GPIO.LOW)
-        # TODO check polarity
+        self.high.value = False
+        self.logger.debug("Heater Switch %s Low Power", self.sw_channel)
 
     def mode_full(self):
         """Turn the heater to Full Power mode."""
-        GPIO.output(self.sw_pin, GPIO.HIGH)
+        self.high.value = True
+        self.logger.debug("Heater Switch %s High Power", self.sw_channel)
 
     def heater_cycle(self, power, cycle_time=25):
         """
@@ -92,20 +109,16 @@ class Heater:
         """Close resources."""
         self.turn_off()
         self.mode_half()
-        GPIO.cleanup()
-        self.logger.debug("Cleanup Heater")
+        self.heat.deinit()
+        self.high.deinit()
+        self.logger.debug("Cleanup Heater %s", self.channel)
 
 
 def test():
     """Test heater."""
 
     my_heater = Heater()
-
-    # for _ in range(3):
-    #     my_heater.turn_on()
-    #     time.sleep(5.0)
-    #     my_heater.turn_off()
-    #     time.sleep(2.0)
+    print(my_heater)
 
     my_heater.heater_cycle(30, cycle_time=20)
     my_heater.heater_cycle(80, cycle_time=20)
