@@ -17,11 +17,11 @@ class Heater:
         """Initialize heater."""
         self.channel = channel
         self.sw_channel = sw_channel
-        # self.pin = pin
-        # self.sw_pin = sw_pin
+        # heating element
         pin = getattr(board, self.channel)
         self.heat = digitalio.DigitalInOut(pin)
         self.heat.direction = digitalio.Direction.OUTPUT
+        # low/high power switch
         sw_pin = getattr(board, self.sw_channel)
         self.high = digitalio.DigitalInOut(sw_pin)
         self.high.direction = digitalio.Direction.OUTPUT
@@ -32,16 +32,6 @@ class Heater:
 
         self.logger = log.get_logger()
         self.logger.debug("Initialize Heater %s %s", self.channel, self.sw_channel)
-
-        # # GPIO Setup
-        # GPIO.setmode(GPIO.BCM)
-        # GPIO.setup(self.pin, GPIO.OUT)
-        # GPIO.setup(self.sw_pin, GPIO.OUT)
-        # GPIO.output(self.pin, GPIO.LOW)
-        # GPIO.output(self.sw_pin, GPIO.LOW)
-        # self.logger = log.get_logger()
-
-        # self.logger.debug("Initialize Heater")
 
     def __del__(self):
         """Delete Heater"""
@@ -67,25 +57,21 @@ class Heater:
         """Turn the heater on."""
         self.heat.value = True
         self.logger.debug("Heater %s on", self.channel)
-        # GPIO.output(self.pin, GPIO.HIGH)
 
     def turn_off(self):
         """Turn the heater off."""
         self.heat.value = False
         self.logger.debug("Heater %s off", self.channel)
-        # GPIO.output(self.pin, GPIO.LOW)
 
     def mode_half(self):
         """Switch the heater to Half Power mode."""
         self.high.value = False
         self.logger.debug("Heater Switch %s Low Power", self.sw_channel)
-        # GPIO.output(self.sw_pin, GPIO.LOW)
 
     def mode_full(self):
         """Turn the heater to Full Power mode."""
         self.high.value = True
         self.logger.debug("Heater Switch %s High Power", self.sw_channel)
-        # GPIO.output(self.sw_pin, GPIO.HIGH)
 
     def heater_cycle(self, power, cycle_time=25):
         """
@@ -123,7 +109,6 @@ class Heater:
         """Close resources."""
         self.turn_off()
         self.mode_half()
-        # GPIO.cleanup()
         self.heat.deinit()
         self.high.deinit()
         self.logger.debug("Cleanup Heater %s", self.channel)
@@ -134,11 +119,6 @@ def test():
 
     my_heater = Heater()
     print(my_heater)
-    # for _ in range(3):
-    #     my_heater.turn_on()
-    #     time.sleep(5.0)
-    #     my_heater.turn_off()
-    #     time.sleep(2.0)
 
     my_heater.heater_cycle(30, cycle_time=20)
     my_heater.heater_cycle(80, cycle_time=20)

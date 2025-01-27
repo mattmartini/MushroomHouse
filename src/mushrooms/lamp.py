@@ -21,17 +21,12 @@ class Lamp:
         pin = getattr(board, self.channel)
         self.light = digitalio.DigitalInOut(pin)
         self.light.direction = digitalio.Direction.OUTPUT
+
         # initialize Lamp to off
         self.light.value = False
 
         self.logger = log.get_logger()
         self.logger.debug("Initialize Lamp %s", self.channel)
-
-        # # GPIO Setup
-        # GPIO.setmode(GPIO.BCM)
-        # GPIO.setup(self.pin, GPIO.OUT)
-        # GPIO.output(self.pin, GPIO.LOW)
-        # self.logger.debug("Initialize Lamp")
 
     def __del__(self):
         """Delete lamp"""
@@ -57,13 +52,9 @@ class Lamp:
         """Turn the lamp on."""
         self.light.value = True
         self.logger.debug("Lamp %s on", self.channel)
-        # GPIO.output(self.pin, GPIO.HIGH)
-        # self.logger.debug("Lamp On")
 
     def lamp_off(self):
         """Turn the lamp off."""
-        # GPIO.output(self.pin, GPIO.LOW)
-        # self.logger.debug("Lamp Off")
         self.light.value = False
         self.logger.debug("Lamp %s off", self.channel)
 
