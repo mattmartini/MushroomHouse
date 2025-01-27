@@ -8,18 +8,19 @@
 
 
 dir='/home/martini/MusroomHouse/src/mushrooms/'
+envdir='/home/martini/MushroomHouse/service/env'
 cmd='controller'
 
 date=$(date "+%Y%m%d_%H%M%S")
 
-/usr/local/sbin/daemonize -a -v \
+/usr/bin/daemonize -a -v \
                           -c ${dir} \
                           -e ${dir}/${cmd}_${date}.err \
                           -o ${dir}/${cmd}_${date}.out \
                           -p /run/${cmd}.pid \
                           -l /run/lock/${cmd}.lock \
-                          -E BUCKET_NAME=$(cat ${dir}/../../service/env/BUCKET_NAME) \
-                          -E BUCKET_KEY=$(cat ${dir}/../../service/env/BUCKET_KEY) \
-                          -E ACCESS_KEY=$(cat ${dir}/../../service/env/ACCESS_KEY) \
-                          -u pi /usr/bin/python3  ${dir}/${cmd}.py
+                          -E BUCKET_NAME="$(cat ${envdir}/BUCKET_NAME)" \
+                          -E BUCKET_KEY="$(cat ${envdir}/BUCKET_KEY)" \
+                          -E ACCESS_KEY="$(cat ${envdir}/ACCESS_KEY)" \
+                          -u martini python ${dir}/${cmd}.py
 
