@@ -1,6 +1,6 @@
 [project]
 name = "mushrooms"
-version = "0.3.0"
+version = "0.4.0"
 description = "Mushroom Environmental Control System"
 readme = "README.md"
 authors = [
