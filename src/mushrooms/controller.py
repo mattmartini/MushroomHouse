@@ -12,6 +12,8 @@ from mushrooms import config
 from mushrooms import data_streamer
 from mushrooms import heater
 from mushrooms import sensor_shtc3
+from mushrooms import sensor_sht4x
+from mushrooms import sensor_scd4x
 from mushrooms import mailer
 from mushrooms import log
 
@@ -31,13 +33,15 @@ pid.setpoint, pid.Kp, pid.Ki, pid.Kd, pid.sample_time = ctrl_config.read_config(
 
 # ds_sensor = sensor_ds18b20.SensorDS18B20()
 # dht_sensor = sensor_dht22.SensorDHT22()
+# sht_sensor = sensor_shtc3.SensorSHTC3()
 
-sht_sensor = sensor_shtc3.SensorSHTC3()
+sht_sensor = sensor_sht4x.SensorSHT4X()
+co2_sensor = sensor_scd4x.SensorSCS4X()
 
 # gh_heater = heater.Heater()
 
 streamer = data_streamer.DataStreamer(
-    temp=45.0, goal_temp=40.0, out_temp=45.0, hum=90.0, pwr=0
+    temp=45.0, goal_temp=40.0, out_temp=45.0, hum=90.0, pwr=0, co2=600
 )
 
 
@@ -119,13 +123,14 @@ def main():
             # out_temp = ds_sensor.read_temp()
             out_temp = -99
             temp, hum = sht_sensor.read_temp()
+            co2 = co2_sensor.read_CO2()
 
             pwr = pid(temp)
             # gh_heater.heater_cycle(pwr, cycle_time=pid.sample_time)
             time.sleep(30)
 
             streamer.load_data(
-                temp=temp, goal_temp=pid.setpoint, out_temp=out_temp, hum=hum, pwr=pwr
+                temp=temp, goal_temp=pid.setpoint, out_temp=out_temp, hum=hum, pwr=pwr, co2=co2
             )
             streamer.send_data()
 
@@ -150,9 +155,9 @@ def main():
                 )
                 signal_test.usr2_now = False
 
-            if temp < 35.0:
-                subject = "Humidity Low Temperature Alert"
-                message = f"The Humidity temperature is {temp:3.3f} F!"
+            if hum < 35.0:
+                subject = "Low Humidity Alert"
+                message = f"The Humidity is {hum:3.3f} F!"
                 mail = mailer.Mailer(subject, message)
                 mail.send()
 
