@@ -4,7 +4,7 @@
 
 #__author__ = "Matt Martini"
 #__email__ = "matt.martini@imaginarywave.com"
-#__version__ = "0.3.0"
+#__version__ = "0.4.0"
 
 
 dir='/home/martini/MusroomHouse/src/mushrooms/'
