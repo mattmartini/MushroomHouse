@@ -36,7 +36,6 @@ class SensorSCD4X:
     def __repr__(self):
         """SCD4X Sensor repr"""
         string = f"SCD4X({self.scale}"
-        # string += f"s/n:{[hex(i) for i in self.scd4x_sensor.serial_number]}, "
         string += ")"
         return string
 
@@ -57,7 +56,7 @@ class SensorSCD4X:
                 time.sleep(0.5)
                 continue
         self.logger.debug(
-            "SCD4X co2(ppm): %0.3f", co2
+            "SCD4X co2(ppm): %d", co2
         )
         return co2
 
@@ -76,7 +75,7 @@ class SensorSCD4X:
                 time.sleep(0.5)
                 continue
         self.logger.debug(
-            "SCD4X co2(ppm): %0.3f temp: %0.3f C hum: %0.3f %%", co2, temp_c, humidity
+            "SCD4X co2(ppm): %d temp: %0.3f C hum: %0.3f %%", co2, temp_c, humidity
         )
         if self.scale == "f":
             return co2, self.convert_c_to_f(temp_c), humidity
@@ -94,7 +93,7 @@ def test():
     my_sensor = SensorSCD4X()
     print(my_sensor)
     co2, tempf, humf = my_sensor.read_temp()
-    print(f" co2: {co2:0.3f} ppm")
+    print(f" co2: {co2:d} ppm")
     print(f"temp: {tempf:0.3f} °F")
     print(f" hum: {humf:0.3f} %")
     my_sensor.cleanup()
@@ -104,7 +103,7 @@ def test():
     my_c_sensor = SensorSCD4X(scale="c")
     print(my_c_sensor)
     co2, tempc, humc = my_c_sensor.read_temp()
-    print(f" co2: {co2:0.3f} ppm")
+    print(f" co2: {co2:d} ppm")
     print(f"temp: {tempc:0.3f} °C")
     print(f" hum: {humc:0.3f} %")
     my_c_sensor.cleanup()
@@ -114,7 +113,7 @@ def test():
     my_co2_sensor = SensorSCD4X()
     print(my_co2_sensor)
     co2 = my_sensor.read_CO2()
-    print(f" co2: {co2} ppm")
+    print(f" co2: {co2:d} ppm")
     my_sensor.cleanup()
 
 
