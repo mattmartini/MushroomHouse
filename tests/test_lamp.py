@@ -2,8 +2,8 @@
 
 import time
 import pytest
+from RPi import GPIO
 from mushrooms.lamp import Lamp
-from mushrooms.os_options import GPIO
 
 
 # @pytest.mark.skip
