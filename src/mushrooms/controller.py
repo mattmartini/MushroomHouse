@@ -36,7 +36,7 @@ pid.setpoint, pid.Kp, pid.Ki, pid.Kd, pid.sample_time = ctrl_config.read_config(
 # sht_sensor = sensor_shtc3.SensorSHTC3()
 
 sht_sensor = sensor_sht4x.SensorSHT4x()
-co2_sensor = sensor_scd4x.SensorSCS4X()
+co2_sensor = sensor_scd4x.SensorSCD4X()
 
 # gh_heater = heater.Heater()
 
