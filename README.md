@@ -16,7 +16,8 @@ Grow mushrooms by providing an environment with optimal humidity and airflow
 
 ## Equipment
 - Raspberry pi 3 Model B+
-- Temperature/Humidity Sensor SHTC3
+- Temperature/Humidity Sensor SHT4X
+- CO2 Sensor SCD4X
 - Relay(s)
 - Humidifier
 - Fan
@@ -31,5 +32,18 @@ Enviornmental setpoint, PID K values, and Cycle Time kept in a config
 file. Changes to config file trigger reloading of config variables.
 Allows for on-the-fly tweeking of parameters.
 
-Temperature, Humidity, and Power data are sent to initial state
+Temperature, Humidity, CO2, and Power data are sent to initial state
 for graphing.
+
+## Setpoints for growing mushrooms
+
+## Pinning
+
+85% - 90% Humidity  
+1200ppm - 1500ppm CO2
+
+## Fruiting
+
+80% - 85% Humidity  
+500ppm - 800ppm (1000ppm max) CO2
+
