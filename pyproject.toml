@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
+    "adafruit-blinka-raspberry-pi-pwm>=1.0.2",
     "adafruit-blinka>=10.0.0",
     "adafruit-circuitpython-ads7830>=1.0.8",
     "adafruit-circuitpython-dht>=4.0.12",
@@ -16,9 +17,11 @@ dependencies = [
     "adafruit-circuitpython-sht4x>=1.0.27",
     "adafruit-circuitpython-shtc3>=1.1.22",
     "board>=1.0",
+    "gpiod>=2.2.2, <3; sys_platform == 'linux'",
     "isstreamer>=2.0.0",
     "rich>=15.0.0",
     "rpi-gpio>=0.7.1; sys_platform == 'linux'",
+    "rpi-ws281x>=4.0.0; sys_platform == 'linux'",
     "simple-pid>=2.0.1",
 ]
 
